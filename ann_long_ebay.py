@@ -100,7 +100,7 @@ if uploaded_file is not None:
     output["Action(SiteID=Italy|Country=IT|Currency=EUR|Version=1193)"] = "Add"
     output["Custom label (SKU)"] = df["sku"]
     output["Title"] = (
-        "x" + df["formato (l)"].astype(str) + "L Olio Motore Auto " +
+        " Olio Motore Auto " "x" + df["formato (l)"].astype(str) + "L" +
         df["nome olio"].astype(str) + " " +
         df["viscosita"].astype(str) + " " +
         df["tipologia"].astype(str) + " " +
