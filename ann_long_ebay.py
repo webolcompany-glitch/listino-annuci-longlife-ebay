@@ -100,7 +100,7 @@ if uploaded_file is not None:
     output["Action(SiteID=Italy|Country=IT|Currency=EUR|Version=1193)"] = "Add"
     output["Custom label (SKU)"] = df["sku"]
     output["Title"] = (
-        " Olio Motore Auto " + df["formato (l)"].astype(str) + " L " + "di " +
+        " Olio Motore Auto " + df["Formato (L)"].astype(str) + " L " + "di " +
         df["nome olio"].astype(str) + " " +
         df["viscosita"].astype(str) + " " +
         df["tipologia"].astype(str) + " " +
@@ -139,7 +139,7 @@ if uploaded_file is not None:
     output["C:MPN"] = df["codice prodotto"]
     output["C:Viscosità SAE"] = df["viscosita"]
     output["C:Marca veicolo"] = "Leggere descrizione per specifiche"
-    output["C:Capienza"] = df["formato (l)"].apply(lambda x: "1 Litro" if float(x)==1 else f"{int(float(x))} Litri")
+    output["C:Capienza"] = df["Formato (L)"].apply(lambda x: "1 Litro" if float(x)==1 else f"{int(float(x))} Litri")
     output["C:Utilizzo"] = df["utilizzo"]
     output["C:Tipologia"] = df["tipologia"]
 
@@ -177,4 +177,5 @@ if uploaded_file is not None:
         st.markdown(f"**Prodotto {i+1}:**", unsafe_allow_html=True)
         st.markdown(html_desc, unsafe_allow_html=True)
         st.markdown("---")
+
 
