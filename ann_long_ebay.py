@@ -31,6 +31,19 @@ def format_html_ebay(title, desc):
     return html
 
 # -------------------------
+# FORMATTING CAPACITA' (C:Capienza)
+# -------------------------
+def format_capienza(x):
+    try:
+        x_float = float(x)
+        if x_float == 1:
+            return "1 Litro"
+        else:
+            return f"{int(x_float)} Litri"
+    except (ValueError, TypeError):
+        return "Sconosciuto"
+
+# -------------------------
 # INIZIO ELABORAZIONE
 # -------------------------
 if uploaded_file is not None:
@@ -164,10 +177,7 @@ if uploaded_file is not None:
     output["C:Viscosità SAE"] = df["viscosita"]
     output["C:Marca veicolo"] = "Leggere descrizione per specifiche"
 
-    output["C:Capienza"] = df["formato (l)"].apply(
-        lambda x: "1 Litro" if float(x) == 1 else f"{int(float(x))} Litri"
-    )
-
+    output["C:Capienza"] = df["formato (l)"].apply(format_capienza)
     output["C:Utilizzo"] = df["utilizzo"]
     output["C:Tipologia"] = df["tipologia"]
 
