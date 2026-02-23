@@ -44,6 +44,27 @@ def format_capienza(x):
         return "Sconosciuto"
 
 # -------------------------
+# GENERAZIONE TITOLO PULITO
+# -------------------------
+def generate_title(row):
+    parts = [
+        "Olio Motore Auto",
+        str(row.get("formato (l)", "")).replace(".0",""),
+        "L di",
+        str(row.get("nome olio", "")).strip(),
+        str(row.get("viscosita", "")).strip(),
+        str(row.get("tipologia", "")).strip(),
+        str(row.get("acea", "")).strip(),
+        str(row.get("marca", "")).strip()
+    ]
+    # Rimuove eventuali campi vuoti o duplicati consecutivi
+    cleaned_parts = []
+    for p in parts:
+        if p and (not cleaned_parts or cleaned_parts[-1] != p):
+            cleaned_parts.append(p)
+    return " ".join(cleaned_parts)
+
+# -------------------------
 # INIZIO ELABORAZIONE
 # -------------------------
 if uploaded_file is not None:
@@ -121,16 +142,7 @@ if uploaded_file is not None:
     output["Action(SiteID=Italy|Country=IT|Currency=EUR|Version=1193)"] = "Add"
     output["Custom label (SKU)"] = df["sku"]
 
-    output["Title"] = (
-        "Olio Motore Auto "
-        + df["formato (l)"].astype(str)
-        + " L di "
-        + df["nome olio"].astype(str) + " "
-        + df["viscosita"].astype(str) + " "
-        + df["tipologia"].astype(str) + " "
-        + df["acea"].astype(str) + " "
-        + df["marca"].astype(str)
-    )
+    output["Title"] = df.apply(generate_title, axis=1)
 
     output["Start price"] = df["prezzo marketplace"]
     output["Buy It Now price"] = df["prezzo marketplace"]
